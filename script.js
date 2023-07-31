@@ -1,28 +1,39 @@
 /* Objetos que mostraremos  */
 const desktopMenu = document.querySelector('.desktop-menu');
-const detailCart = document.querySelector('.product-detail');
+const detailCart = document.querySelector('#shoppingCartContainer');
 const mobileMenu = document.querySelector('.mobile-menu');
 const cardContainer = document.querySelector('.cards-container');
+const mainContainer = document.querySelector('.main-container');
+const productDetail = document.querySelector('#product-detail');
 
 /* botones */
 const navEmail = document.querySelector('.navbar-email');
 const btnMenuMobile = document.querySelector('.menu');
 const shoppingCart = document.querySelector('.navbar-shopping-cart');
 const titleContainer = document.querySelector('.title-container');
+const closeDetail = document.querySelector('.product-detail-close');
 
 /* eventos de los botones */
 navEmail.addEventListener('click', toggleMenuDesktop);
 btnMenuMobile.addEventListener('click', toggleMobileMenu);
 shoppingCart.addEventListener('click', toggleCart);
 titleContainer.addEventListener('click', toggleCart);
+cardContainer.addEventListener('click', createDetail);
+closeDetail.addEventListener('click', closeDetails);
 
 /* funciones*/ /* En cada función se hace un condicional para cuando se desplegue un menu el 
 otro desaparezca */
 function toggleMenuDesktop() {
   const isDetailCartOpen = !detailCart.classList.contains('inactive');
+  const isProductDetail = !productDetail.classList.contains('inactive');
 
   if (isDetailCartOpen) {
     detailCart.classList.add('inactive');
+  }
+
+  if (isProductDetail) {
+    productDetail.classList.add('inactive');
+    mainContainer.classList.remove('reduce-main');
   }
 
   desktopMenu.classList.toggle('inactive');
@@ -30,9 +41,15 @@ function toggleMenuDesktop() {
 
 function toggleMobileMenu() {
   const isDetailCartOpen = !detailCart.classList.contains('inactive');
+  const isProductDetail = !productDetail.classList.contains('inactive');
 
   if (isDetailCartOpen) {
     detailCart.classList.add('inactive');
+  }
+
+  if (isProductDetail) {
+    productDetail.classList.add('inactive');
+    mainContainer.classList.remove('reduce-main');
   }
 
   mobileMenu.classList.toggle('inactive');
@@ -41,6 +58,7 @@ function toggleMobileMenu() {
 function toggleCart() {
   const isMobileMenuOpen = !mobileMenu.classList.contains('inactive');
   const isDesktopMenuOpen = !desktopMenu.classList.contains('inactive');
+  const isProductDetail = !productDetail.classList.contains('inactive');
 
   if (isMobileMenuOpen) {
     mobileMenu.classList.add('inactive');
@@ -49,7 +67,38 @@ function toggleCart() {
     desktopMenu.classList.add('inactive');
   }
 
+  if (isProductDetail) {
+    productDetail.classList.add('inactive');
+    mainContainer.classList.remove('reduce-main');
+  }
+
   detailCart.classList.toggle('inactive');
+}
+
+/* function toggleDetails() {
+  const isMobileMenuOpen = !mobileMenu.classList.contains('inactive');
+  const isDesktopMenuOpen = !desktopMenu.classList.contains('inactive');
+  const isDetailCartOpen = !detailCart.classList.contains('inactive');
+
+  if (isDetailCartOpen) {
+    detailCart.classList.add('inactive');
+  }
+
+  if (isMobileMenuOpen) {
+    mobileMenu.classList.add('inactive');
+  }
+
+  if (isDesktopMenuOpen) {
+    desktopMenu.classList.add('inactive');
+  }
+
+  productDetail.classList.remove('inactive');
+  mainContainer.classList.add('reduce-main');
+} */
+
+function closeDetails() {
+  productDetail.classList.add('inactive');
+  mainContainer.classList.remove('reduce-main');
 }
 
 /* Creacion de productos con array y evitar el uso de dato HTML */
@@ -90,6 +139,8 @@ productsList.push({
 productsList.push({
   name: 'Control PS5',
   price: '59',
+  description:
+    'With its practical position, this bike also fulfills a decorative function, add your hall or workspace.',
   image:
     'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
 });
@@ -148,6 +199,45 @@ function creatorCards(arr) {
     cardContainer.append(
       productCard
     ); /* la clase card-container la traemos desde el html y es a donde iran todos los elementos que hemos creado con js */
+  }
+}
+
+{
+  /* <img
+src="https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+alt="bike"
+/>
+<div class="product-info-details">
+<p>$35,00</p>
+<p>Bike</p>
+<p>
+  With its practical position, this bike also fulfills a decorative
+  function, add your hall or workspace.
+</p> */
+}
+function createDetail() {
+  const isMobileMenuOpen = !mobileMenu.classList.contains('inactive');
+  const isDesktopMenuOpen = !desktopMenu.classList.contains('inactive');
+  const isDetailCartOpen = !detailCart.classList.contains('inactive');
+
+  if (isDetailCartOpen) {
+    detailCart.classList.add('inactive');
+  }
+
+  if (isMobileMenuOpen) {
+    mobileMenu.classList.add('inactive');
+  }
+
+  if (isDesktopMenuOpen) {
+    desktopMenu.classList.add('inactive');
+  }
+
+  productDetail.classList.remove('inactive');
+  mainContainer.classList.add('reduce-main');
+
+  function closeDetails() {
+    productDetail.classList.add('inactive');
+    mainContainer.classList.remove('reduce-main');
   }
 }
 
