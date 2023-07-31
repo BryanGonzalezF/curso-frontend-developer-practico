@@ -5,6 +5,7 @@ const mobileMenu = document.querySelector('.mobile-menu');
 const cardContainer = document.querySelector('.cards-container');
 const mainContainer = document.querySelector('.main-container');
 const productDetail = document.querySelector('#product-detail');
+const numCart = document.querySelector('.numCart');
 
 /* botones */
 const navEmail = document.querySelector('.navbar-email');
@@ -18,7 +19,6 @@ navEmail.addEventListener('click', toggleMenuDesktop);
 btnMenuMobile.addEventListener('click', toggleMobileMenu);
 shoppingCart.addEventListener('click', toggleCart);
 titleContainer.addEventListener('click', toggleCart);
-cardContainer.addEventListener('click', createDetail);
 closeDetail.addEventListener('click', closeDetails);
 
 /* funciones*/ /* En cada función se hace un condicional para cuando se desplegue un menu el 
@@ -75,7 +75,7 @@ function toggleCart() {
   detailCart.classList.toggle('inactive');
 }
 
-/* function toggleDetails() {
+function toggleDetails() {
   const isMobileMenuOpen = !mobileMenu.classList.contains('inactive');
   const isDesktopMenuOpen = !desktopMenu.classList.contains('inactive');
   const isDetailCartOpen = !detailCart.classList.contains('inactive');
@@ -94,11 +94,18 @@ function toggleCart() {
 
   productDetail.classList.remove('inactive');
   mainContainer.classList.add('reduce-main');
-} */
+}
 
 function closeDetails() {
   productDetail.classList.add('inactive');
   mainContainer.classList.remove('reduce-main');
+}
+
+let numAdd = 0;
+
+function addCart() {
+  numAdd++;
+  numCart.innerText = numAdd;
 }
 
 /* Creacion de productos con array y evitar el uso de dato HTML */
@@ -166,6 +173,7 @@ function creatorCards(arr) {
       product.image
     ); /* con setAttribute le agregamos el atributo que le queremos agregar a nuestro elemento
     seguido de la ruta donde se encuetre nuestro recurso o en este caso que se llama desde el array */
+    productImg.addEventListener('click', toggleDetails);
 
     /* creacion del div de product-info */
     const productInfo = document.createElement('div');
@@ -191,6 +199,7 @@ function creatorCards(arr) {
     const productCardIcon = document.createElement('img');
     productCardIcon.setAttribute('src', './icons/bt_add_to_cart.svg');
     productFigure.append(productCardIcon);
+    productFigure.addEventListener('click', addCart);
 
     productInfo.append(productDiv, productFigure);
 
@@ -199,45 +208,6 @@ function creatorCards(arr) {
     cardContainer.append(
       productCard
     ); /* la clase card-container la traemos desde el html y es a donde iran todos los elementos que hemos creado con js */
-  }
-}
-
-{
-  /* <img
-src="https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-alt="bike"
-/>
-<div class="product-info-details">
-<p>$35,00</p>
-<p>Bike</p>
-<p>
-  With its practical position, this bike also fulfills a decorative
-  function, add your hall or workspace.
-</p> */
-}
-function createDetail() {
-  const isMobileMenuOpen = !mobileMenu.classList.contains('inactive');
-  const isDesktopMenuOpen = !desktopMenu.classList.contains('inactive');
-  const isDetailCartOpen = !detailCart.classList.contains('inactive');
-
-  if (isDetailCartOpen) {
-    detailCart.classList.add('inactive');
-  }
-
-  if (isMobileMenuOpen) {
-    mobileMenu.classList.add('inactive');
-  }
-
-  if (isDesktopMenuOpen) {
-    desktopMenu.classList.add('inactive');
-  }
-
-  productDetail.classList.remove('inactive');
-  mainContainer.classList.add('reduce-main');
-
-  function closeDetails() {
-    productDetail.classList.add('inactive');
-    mainContainer.classList.remove('reduce-main');
   }
 }
 
